@@ -9,8 +9,8 @@ from os import urandom as __urandom
 
 def split_bytes(m):
     '''
-    split_bytes splits m into 3 shares using 2,3 threshold secret sharing
-    algorithm defined by:
+    Splits m into 3 shares using (2,3) threshold secret sharing algorithm
+    defined by:
         m = secret byte with bits [m7 m6 m5 m4 m3 m2 m1 m0]
         r = random byte
         s0 = [ 0  0  0  0 m7 m6 m5 m4] ^ r
@@ -39,7 +39,7 @@ def split_bytes(m):
 
 def join_bytes(a, b):
     '''
-    join_bytes recovers secret from any two tagged shares.
+    Recovers secret from any two tagged shares.
     '''
     if len(a) != len(b):
         raise ValueError('size mismatch')
@@ -60,7 +60,7 @@ def join_bytes(a, b):
 
 def __join_bytes_01(m, a, b):
     '''
-    __join_bytes_01, when a = s0 and b = s1
+    when a = s0 and b = s1
         c = a ^ b
         m = [c3 c2 c1 c0 0 0 0 0] | [0 0 0 0 c7 c6 c5 c4]
     '''
@@ -70,7 +70,7 @@ def __join_bytes_01(m, a, b):
 
 def __join_bytes_02(m, a, b):
     '''
-    __join_bytes_02, when a = s0 and b = s2
+    when a = s0 and b = s2
         c = a ^ b
         m = [0 0 0 0 c7 c6 c5 c4] ^ c
     '''
@@ -80,7 +80,7 @@ def __join_bytes_02(m, a, b):
 
 def __join_bytes_12(m, a, b):
     '''
-    __join_bytes_12, when a = s1 and b = s2
+    when a = s1 and b = s2
         c = a ^ b
         m = [c3 c2 c1 c0 0 0 0 0] ^ c
     '''
